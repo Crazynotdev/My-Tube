@@ -16,7 +16,6 @@
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "react-google-adsense": "^2.0.2",
     "ytdl-core": "^4.11.5",
     "youtube-search": "^1.1.6"
   },
