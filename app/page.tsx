@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import AdBanner from "../components/AdBanner";
-import ResultCard from "../components/ResultCard";
+import AdBanner from "./components/AdBanner";
+import ResultCard from "./components/ResultCard";
 import { useInView } from "react-intersection-observer";
 
 export default function Home() {
