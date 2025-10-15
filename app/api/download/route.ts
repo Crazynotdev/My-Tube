@@ -14,7 +14,7 @@ export async function GET(request: Request) {
 
   if (source === "youtube") {
     const info = await ytdl.getInfo(`https://www.youtube.com/watch?v=${id}`);
-    formats = (format === "mp3" ? ytdl.filterFormats(info.formats, "audioonly") : ytdl.filterFormats(info.formats, "videoand audio")).map((f) => ({
+    formats = (format === "mp3" ? ytdl.filterFormats(info.formats, "audioonly") : ytdl.filterFormats(info.formats, "videoandaudio")).map((f) => ({
       quality: f.qualityLabel || f.audioBitrate + "kbps",
       url: f.url,
     }));
