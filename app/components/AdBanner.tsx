@@ -1,6 +1,6 @@
 'use client';
 
-import AdSense from "react-google-adsense";
+//import AdSense from "react-google-adsense";
 
 export default function AdBanner({ format = "auto", type = "display" }: { format?: string; type?: "display" | "native" }) {
   return (
