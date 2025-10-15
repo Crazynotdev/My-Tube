@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles pour body et typographie globale */
+body {
+  @apply bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased font-sans;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Amélioration typographie (utilise prose pour du contenu riche si plugin installé) */
+.prose {
+  @apply max-w-none;
+}
+.prose h1 {
+  @apply text-4xl font-bold mb-4;
+}
+.prose h2 {
+  @apply text-2xl font-semibold mb-3;
+}
+.prose p {
+  @apply mb-4 leading-relaxed;
+}
+.prose a {
+  @apply text-blue-600 hover:text-blue-800 underline;
+}
+.prose dark {
+  @apply text-gray-300;
+}
+.prose dark a {
+  @apply text-blue-400 hover:text-blue-300;
+}
+
+/* Layer pour composants personnalisés (réutilisables dans ton code) */
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200;
+  }
+  .btn-secondary {
+    @apply bg-green-500 text-white font-medium py-2 px-4 rounded-lg shadow-md hover:bg-green-600 focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 transition duration-200;
+  }
+  .card {
+    @apply bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300;
+  }
+  .input-search {
+    @apply w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition;
+  }
+}
+
+/* Layer pour utilities personnalisées */
+@layer utilities {
+  .gradient-bg {
+    @apply bg-gradient-to-r from-blue-500 to-indigo-600;
+  }
+  .text-shadow {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-400;
+  }
+}
+
+/* Styles globaux pour focus (accessibilité) */
+*:focus {
+  @apply focus-ring;
+}
+
+/* Améliorations pour dark mode */
+.dark .invert-colors {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Transitions globales pour smoothness */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
