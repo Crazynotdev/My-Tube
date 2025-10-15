@@ -1,4 +1,4 @@
-import AdBanner from './components/AdBanner.tsx';
+import AdBanner from '../components/AdBanner';
 
 export default function About() {
   return (
