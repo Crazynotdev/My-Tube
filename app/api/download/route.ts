@@ -24,7 +24,7 @@ export async function GET(request: Request) {
   } else if (source === "soundcloud") {
     const scClient = new Client();
     try {
-      const track = await scClient.getTrackInfo(id);
+      const track = await scClient.getSong(id);
       formats = [{ quality: "128kbps", url: track.downloadURL || track.streamURL }];
     } catch (error) {
       return NextResponse.json({ error: "Piste SoundCloud introuvable ou inaccessible" }, { status: 404 });
