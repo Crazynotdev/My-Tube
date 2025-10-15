@@ -8,9 +8,7 @@ export async function GET(request: Request) {
   const format = searchParams.get("format");
   const source = searchParams.get("source") || "youtube";
 
-  if (!id || !format) {
-    return NextResponse.json({ error: "Paramètres manquants" }, { status: 400 });
-  }
+  if (!id || !format) return NextResponse.json({ error: "Paramètres manquants" }, { status: 400 });
 
   let formats: { quality: string; url: string }[] = [];
 
@@ -28,7 +26,7 @@ export async function GET(request: Request) {
     try {
       const track = await scClient.getTrackInfo(id);
       formats = [{ quality: "128kbps", url: track.downloadURL || track.streamURL }];
-    } catch (err) {
+    } catch (error) {
       return NextResponse.json({ error: "Piste SoundCloud introuvable ou inaccessible" }, { status: 404 });
     }
   }
