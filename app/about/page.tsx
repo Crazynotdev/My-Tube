@@ -1,3 +1,5 @@
+import AdBanner from './components/AdBanner';
+
 export default function About() {
   return (
     <div className="max-w-7xl mx-auto p-4 prose dark:prose-invert">
