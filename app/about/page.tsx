@@ -1,11 +1,17 @@
-import AdBanner from '../components/AdBanner';
+export const metadata = {
+  title: "À propos - MyTube",
+  description: "Découvrez qui nous sommes et notre mission.",
+};
 
-export default function About() {
+export default function AboutPage() {
   return (
-    <div className="max-w-7xl mx-auto p-4 prose dark:prose-invert">
-      <h1>À Propos de MyTube</h1>
-      <p>MyTube est une plateforme créer par Crazy gratuite pour rechercher et télécharger du contenu multimédia depuis diverses sources. Nous priorisons la simplicité et la qualité.</p>
-      <AdBanner />
-    </div>
+    <section className="max-w-4xl mx-auto py-16 text-center">
+      <h1 className="text-4xl font-bold mb-6 text-blue-600">À propos de MyTube</h1>
+      <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+        MyTube est une plateforme gratuite qui permet de télécharger facilement des vidéos et musiques depuis YouTube et d'autres sources.
+        Notre mission est de simplifier l'accès au contenu multimédia, sans publicité intrusive.
+      </p>
+    </section>
   );
 }
+
