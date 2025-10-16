@@ -1,116 +1,49 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from "react";
-import AdBanner from "./components/AdBanner";
-import ResultCard from "./components/ResultCard";
-import { useInView } from "react-intersection-observer";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
-interface Result {
-  id: string;
-  title: string;
-  thumbnail: string;
-  duration: string;
-  views: string;
-  source: "youtube" | "soundcloud";
-  previewUrl?: string;
-}
-
-export default function Home() {
+export default function HomePage() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<Result[]>([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [history, setHistory] = useState<string[]>([]);
-  const { ref, inView } = useInView();
-
-  useEffect(() => {
-    const stored = localStorage.getItem("searchHistory");
-    if (stored) setHistory(JSON.parse(stored));
-  }, []);
-
-  const handleSearch = async (newQuery: string = query, append = false) => {
-    if (!newQuery) return;
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/search?query=${encodeURIComponent(newQuery)}&page=${page}`);
-      if (!res.ok) throw new Error("Erreur API");
-      const data: Result[] = await res.json();
-      setResults(append ? [...results, ...data] : data);
-      setHasMore(data.length > 0);
-      if (!append) {
-        const newHistory = [newQuery, ...history.filter(h => h !== newQuery).slice(0, 9)];
-        setHistory(newHistory);
-        localStorage.setItem("searchHistory", JSON.stringify(newHistory));
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (inView && hasMore && !loading) {
-      setPage(prev => prev + 1);
-      handleSearch(query, true);
-    }
-  }, [inView, hasMore, loading, query]);
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      {/* Bannière principale */}
-      <AdBanner format="horizontal" />
+    <motion.div
+      className="flex flex-col items-center justify-center min-h-[80vh] text-center px-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">
+        MyTube Downloader 🎧
+      </h1>
+      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl">
+        Téléchargez vos vidéos et musiques préférées depuis YouTube — Simple, rapide et gratuit !
+      </p>
 
-      {/* Barre de recherche stylée */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+      <div className="flex w-full max-w-xl bg-white dark:bg-gray-800 shadow-lg rounded-full overflow-hidden">
         <input
           type="text"
+          placeholder="Rechercher une vidéo ou coller un lien..."
           value={query}
-          onChange={e => setQuery(e.target.value)}
-          placeholder="Rechercher musique ou vidéo..."
-          className="flex-1 p-3 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
-          onKeyDown={e => e.key === "Enter" && handleSearch()}
+          onChange={(e) => setQuery(e.target.value)}
+          className="flex-1 px-5 py-3 focus:outline-none bg-transparent text-gray-800 dark:text-gray-100"
         />
         <button
-          onClick={() => handleSearch()}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:scale-105 transition-transform"
+          onClick={() => alert(`Recherche de "${query}"`)}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 font-semibold transition-all"
         >
           Rechercher
         </button>
       </div>
 
-      {/* Historique de recherche */}
-      {history.length > 0 && (
-        <div className="mb-6">
-          <h3 className="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">Historique</h3>
-          <ul className="flex flex-wrap gap-2">
-            {history.map((item, idx) => (
-              <li
-                key={idx}
-                onClick={() => handleSearch(item)}
-                className="cursor-pointer px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-blue-600 text-gray-800 dark:text-white hover:text-white transition-colors"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {/* Résultats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {results.map((item, idx) => (
-          <div key={item.id} className="transition-transform hover:scale-105">
-            <ResultCard item={item} />
-            {(idx + 1) % 4 === 0 && <AdBanner type="native" />}
-          </div>
-        ))}
-      </div>
-
-      {loading && <p className="text-center mt-6 text-gray-700 dark:text-gray-300 font-semibold">Chargement...</p>}
-      {hasMore && <div ref={ref} className="h-10" />}
-      <AdBanner format="rectangle" type="display" />
-    </div>
+      <motion.div
+        className="mt-16 text-gray-500 dark:text-gray-400"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+      >
+        ⚡ Aucun téléchargement encore lancé. Recherchez une vidéo pour commencer !
+      </motion.div>
+    </motion.div>
   );
 }
