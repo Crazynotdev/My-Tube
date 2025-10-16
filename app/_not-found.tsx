@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 export default function NotFound() {
   return (
@@ -17,3 +17,4 @@ export default function NotFound() {
   );
 }
 
+*/
